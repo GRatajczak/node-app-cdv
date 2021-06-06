@@ -18,6 +18,8 @@
   },
   "homepage": "https://github.com/GRatajczak/node-app-cdv#readme",
   "devDependencies": {
+    "axios": "^0.21.1",
+    "jest": "^27.0.4",
     "nodemon": "^2.0.7",
     "sequelize-cli": "^6.2.0"
   },
