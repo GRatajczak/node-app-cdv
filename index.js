@@ -10,7 +10,7 @@ const helmet = require('helmet')
 const corsOptions = require('./config/development.cjs')
 const readFile = util.promisify(fs.readFile)
 const db = require('./models/index')
-
+require('dotenv').config()
 //endpoints
 const bill = require('./routes/api/bill.js')
 const menu = require('./routes/api/menu.js')
@@ -32,13 +32,12 @@ app.use('/order', order);
 app.get('/', (req, res) => {
 	res.send('Hello World!')
 })
-
 const port = process.env.PORT || 3001
 
 const  start = async () => {
 	const [key, cert] = await Promise.all([
-		readFile('_security/key.pem','ascii'),
-		readFile('_security/cert.pem','ascii'),
+		readFile(process.env.HTTPS_KEY_PATH,'ascii'),
+		readFile(process.env.HTTPS_CERT_PATH,'ascii'),
 	]);
 	if (key && cert) {
 
