@@ -21,5 +21,12 @@ router.post('/', (req,res) => {
     .then(data => res.send(data))
 })
 
+router.put('/', (req,res) => {
+
+})
+
+router.delete('/', (req,res) => {
+
+})
 
 module.exports = router
