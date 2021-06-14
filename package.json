@@ -4,9 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "cross-env NODE_ENV=test jest --detectOpenHandles --maxWorkers=1 --watch",
+    "test-api": "cross-env NODE_ENV=test nodemon src/index.js",
+    "test": "cross-env NODE_ENV=test NODE_OPTIONS=--experimental-vm-modules jest --detectOpenHandles --maxWorkers=1 --watch",
     "dev": "cross-env NODE_ENV=development nodemon  ./index.js"
   },
+ 
   "repository": {
     "type": "git",
     "url": "git+https://github.com/GRatajczak/node-app-cdv.git"
@@ -37,5 +39,8 @@
     "mysql2": "^2.2.5",
     "sequelize": "^6.6.2",
     "sqlite3": "^5.0.2"
+  },
+  "jest": {
+    "transform": {}
   }
 }

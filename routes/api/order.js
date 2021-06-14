@@ -12,7 +12,7 @@ router.get('/:id', (req, res) => {
     Order.findByPk(req.params.id)
         .then(data => res.send(data))
 });
-
+https://localhost:3001/order
 router.post('/', (req, res) => {
     // todo test record, remove in the future
     /*const firstOrder = {
@@ -23,7 +23,7 @@ router.post('/', (req, res) => {
         currency: 'test',
     };*/
     Order.create(req.body)
-        .then(data => res.send(data))
+    .then(data => res.send(data))
 });
 
 router.patch('/:id', (req, res) => {
@@ -31,11 +31,13 @@ router.patch('/:id', (req, res) => {
     Order.update(req.body)
         .then(data => res.send(data))
 });
-
-router.delete('/:id', (req, res) => {
-    // todo try to find a method to remove by id
-    Order.destroy(req.body)
-        .then(data => res.send(data))
+router.delete('/:id',async (req, res) => {
+    
+    const order = await  Order.findByPk(req.params.id)
+    const orderRes = await order.destroy();
+    console.log(orderRes); // "Jane"
+  
+    res.status(200).send('ok')
 });
 
 module.exports = router;
