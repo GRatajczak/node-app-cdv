@@ -19,5 +19,6 @@ db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
 db.order = require("./order.model.js")(sequelize, Sequelize);
+db.orderedDish = require("./orderedDish.model.js")(sequelize, Sequelize);
 
 module.exports = db;    
