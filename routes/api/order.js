@@ -6,13 +6,21 @@ const Order = db.order;
 router.get('/all', (req, res) => {
     Order.findAll()
         .then(data => res.send(data))
+        .catch((err) => {
+            console.log(err);
+            res.status(500).send('Failed to get all');
+        });
 });
 
-router.get('/:id', (req, res) => {
-    Order.findByPk(req.params.id)
+router.get('/', (req, res) => {
+    Order.findByPk(req.query.id)
         .then(data => res.send(data))
+        .catch((err) => {
+            console.log(err);
+            res.status(500).send('Failed to get');
+        });
 });
-https://localhost:3001/order
+
 router.post('/', (req, res) => {
     // todo test record, remove in the future
     /*const firstOrder = {
@@ -23,21 +31,46 @@ router.post('/', (req, res) => {
         currency: 'test',
     };*/
     Order.create(req.body)
-    .then(data => res.send(data))
+        .then(data => res.status(201).send(data))
+        .catch((err) => {
+            console.log(err);
+            res.status(500).send('Failed to insert');
+        });
 });
 
-router.patch('/:id', (req, res) => {
-    // todo what with id? Should we pass it with body?
-    Order.update(req.body)
-        .then(data => res.send(data))
+router.patch('/', (req, res) => {
+    Order.update(
+        req.body,
+        {returning: true, where: {id: req.body.id}}
+    )
+        .then(() => res.status(204).end())
+        .catch((err) => {
+            console.log(err);
+            res.status(500).send('Failed to update');
+        });
 });
-router.delete('/:id',async (req, res) => {
-    
-    const order = await  Order.findByPk(req.params.id)
-    const orderRes = await order.destroy();
-    console.log(orderRes); // "Jane"
-  
-    res.status(200).send('ok')
+
+router.delete('/', (req, res) => {
+    Order.destroy({
+        where: {id: req.query.id}
+    })
+        .then(() => res.status(204).end())
+        .catch((err) => {
+            console.log(err);
+            res.status(500).send('Failed to delete');
+        });
+});
+
+router.delete('/all', (req, res) => {
+    Order.destroy({
+        where: {},
+        truncate: true
+    })
+        .then(() => res.status(204).end())
+        .catch((err) => {
+            console.log(err);
+            res.status(500).send('Failed to delete all');
+        });
 });
 
 module.exports = router;
