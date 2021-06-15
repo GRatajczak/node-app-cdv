@@ -2,12 +2,6 @@ const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
     return sequelize.define('OrderedDish', {
-        id: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-            primaryKey: true,
-            autoIncrement: true
-        },
         orderId: {
             type: DataTypes.INTEGER,
             allowNull: false

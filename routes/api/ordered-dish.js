@@ -12,8 +12,8 @@ router.get('/all', (req, res) => {
         });
 });
 
-router.get('/', (req, res) => {
-    OrderedDish.findByPk(req.query.id)
+router.get('/:id', (req, res) => {
+    OrderedDish.findByPk(req.params.id)
         .then(data => res.send(data))
         .catch((err) => {
             console.log(err);
@@ -53,6 +53,7 @@ router.delete('/', (req, res) => {
         });
 });
 
+// todo remove after Paweł's tests
 router.delete('/all', (req, res) => {
     OrderedDish.destroy({
         where: {},

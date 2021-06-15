@@ -2,12 +2,6 @@ const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
     return sequelize.define('Order', {
-        id: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-            primaryKey: true,
-            autoIncrement: true
-        },
         orderDate: {
             type: DataTypes.DATE,
             allowNull: false

@@ -12,8 +12,8 @@ router.get('/all', (req, res) => {
         });
 });
 
-router.get('/', (req, res) => {
-    Order.findByPk(req.query.id)
+router.get('/:id', (req, res) => {
+    Order.findByPk(req.params.id)
         .then(data => res.send(data))
         .catch((err) => {
             console.log(err);
@@ -61,6 +61,7 @@ router.delete('/', (req, res) => {
         });
 });
 
+// todo remove after Paweł's tests
 router.delete('/all', (req, res) => {
     Order.destroy({
         where: {},
