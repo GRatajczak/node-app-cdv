@@ -44,7 +44,7 @@ router.patch('/', (req, res) => {
 
 router.delete('/:id', (req, res) => {
     Bill.destroy({
-        where: {id: req.query.id}
+        where: {id: req.params.id}
     })
         .then(() => res.status(204).end())
         .catch((err) => {
