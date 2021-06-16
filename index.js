@@ -17,9 +17,11 @@ const bill = require('./routes/api/bill.js');
 const menu = require('./routes/api/menu.js');
 const order = require('./routes/api/order.js');
 const orderedDish = require('./routes/api/ordered-dish.js');
+const setOrder = require('./routes/api/set-order.js');
 
 app.use(helmet());
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors(corsOptions || {}));
 app.disable("x-powered-by");
 
@@ -29,6 +31,7 @@ app.use('/bill', bill);
 app.use('/menu', menu);
 app.use('/order', order);
 app.use('/orderedDish', orderedDish);
+app.use('/set-order', setOrder);
 
 app.get('/', (req, res) => {
 	res.send('Hello World!')
