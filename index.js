@@ -13,7 +13,7 @@ const db = require('./models/index');
 require('dotenv').config();
 
 //endpoints
-// const bill = require('./routes/api/bill.js');
+const bill = require('./routes/api/bill.js');
 // const menu = require('./routes/api/menu.js');
 const order = require('./routes/api/order.js');
 const orderedDish = require('./routes/api/ordered-dish.js');
@@ -25,7 +25,7 @@ app.disable("x-powered-by");
 
 //Adding endpoints
 
-// app.use('/bill', bill);
+app.use('/bill', bill);
 // app.use('/menu', menu);
 app.use('/order', order);
 app.use('/orderedDish', orderedDish);
