@@ -1,4 +1,4 @@
-const { Sequelize, Model, DataTypes } = require("sequelize");
+/*
 const { Sequelize, DataTypes } = require("sequelize");
 const sequelize = new Sequelize('sqlite::memory:');
 
@@ -12,4 +12,4 @@ const Bill = sequelize.define('Bill', {
     }, {
 });
 
-module.exports = Bill;
+module.exports = Bill;*/

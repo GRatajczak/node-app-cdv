@@ -1,26 +1,21 @@
 // tests/helpers.js
 
-import axios from "axios";
-import https from "https";
-import config from "config";
+const axios = require('axios');
+const https = require('https');
 
 const agent = new https.Agent({
   rejectUnauthorized: false,
 });
 
-export const getAppUrl = (uri, isPublic, env) => {
+ const getAppUrl = (uri, isPublic, env) => {
   switch (env) {
     //TODO add other envs
     default:
-      return `https://localhost:${config.options.port}${
-        isPublic
-          ? config.options.public_routes_prefix
-          : config.options.private_routes_prefix
-      }${uri}`;
+      return `https://localhost:3001${uri}`;
   }
 };
 
-export const callApi = async (method, uri, body, options, isPublic, env) => {
+ const callApi = async (method, uri, body, options, isPublic, env) => {
   const url = getAppUrl(uri, isPublic, env);
   const conf = { ...options, httpsAgent: agent };
   switch (method) {
@@ -36,3 +31,5 @@ export const callApi = async (method, uri, body, options, isPublic, env) => {
       return await axios.get(url, conf);
   }
 };
+
+module.exports = callApi;
