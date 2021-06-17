@@ -8,7 +8,6 @@
     "test": "cross-env NODE_ENV=test NODE_OPTIONS=--experimental-vm-modules jest --detectOpenHandles --maxWorkers=1 --watch",
     "dev": "cross-env NODE_ENV=development nodemon  ./index.js"
   },
- 
   "repository": {
     "type": "git",
     "url": "git+https://github.com/GRatajczak/node-app-cdv.git"

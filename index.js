@@ -18,6 +18,9 @@ const menu = require('./routes/api/menu.js');
 const order = require('./routes/api/order.js');
 const orderedDish = require('./routes/api/ordered-dish.js');
 const setOrder = require('./routes/api/set-order.js');
+const updateOrder = require('./routes/api/update-order.js');
+const payBill = require('./routes/api/pay-bill.js');
+
 
 app.use(helmet());
 app.use(bodyParser.json());
@@ -32,11 +35,14 @@ app.use('/menu', menu);
 app.use('/order', order);
 app.use('/orderedDish', orderedDish);
 app.use('/set-order', setOrder);
+app.use('/update-order', updateOrder);
+app.use('/pay-bill', payBill);
+
 
 app.get('/', (req, res) => {
 	res.send('Hello World!')
 })
-const port = process.env.PORT || 3002;
+const port = process.env.PORT || 3001;
 
 const  start = async () => {
 	const [key, cert] = await Promise.all([

@@ -23,11 +23,7 @@ module.exports = (sequelize) => {
         table: {
             type: DataTypes.STRING,
             allowNull: false,
-        },
-        currency: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
+        }
     }, {});
 };
 
