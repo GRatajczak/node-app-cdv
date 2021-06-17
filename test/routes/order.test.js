@@ -1,15 +1,11 @@
-// tests/routes/status.test.js
-
 const callApi = require('../helpers.js')
-const PATH = `api/order/all`;
+const PATH = `api/order/`;
 
-//  - nie przechodzi
 test(`[DELETE] ${PATH} - order - DELETE - 1 - should delete an object and return 'ok'`, async () => {
-  const response = await callApi("delete", "/order/1", {}, {}, true);
-  expect(response.status).toEqual(200);
+  const response = await callApi("delete", "/order/?id=1", {}, {}, true);
+  expect(response.status).toEqual(204);
 });
 
-// - przechodzi
 test(`[DELETE] ${PATH} - order - DELETE - all - should delete all objects`, async () => {
   const response = await callApi("delete", "/order/all", {}, {}, true);
   expect(response.status).toEqual(204);
@@ -21,7 +17,7 @@ test(`[GET] ${PATH} - order - -GET - all - should return array of orders`, async
 });
 
 test(`[GET] ${PATH} - order - GET - 1 - should return single order if exists`, async () => {
-  const response = await callApi("get", "/order/1", {}, {}, true);
+  const response = await callApi("get", "/order/?id=1", {}, {}, true);
   expect(response.status).toEqual(200);
 });
 
@@ -42,13 +38,11 @@ test(`[POST] ${PATH} - order - POST - should return new object`, async () => {
 test(`[PATCH] ${PATH} - order - PATCH - should update an object`, async () => {
 
   const updateDish = {
-    orderDate: new Date(),
-    payDate: new Date(),
     status: 'Zapłacono',
-    table: '4',
+    table: '5',
     currency: 'test'
   }
   
-  const response = await callApi("post", "/orderedDish/", updateDish, {}, true);
+  const response = await callApi("patch", "/orderedDish/", updateDish, {}, true);
   expect(response.status).toEqual(204);
   });

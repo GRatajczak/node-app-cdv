@@ -11,7 +11,7 @@ const agent = new https.Agent({
   switch (env) {
     //TODO add other envs
     default:
-      return `https://localhost:3001${uri}`;
+      return `https://localhost:3002${uri}`;
   }
 };
 

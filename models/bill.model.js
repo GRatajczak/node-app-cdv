@@ -5,6 +5,6 @@ module.exports = (sequelize) => {
         paidUp: {
             type: DataTypes.DOUBLE,
             allowNull: false
-        }
+        },
     }, {});
 };
