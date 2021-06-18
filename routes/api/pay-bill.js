@@ -11,36 +11,65 @@ let  menuIsCompleted = require('../../config/checkMenuStatus');
 
 router.put('/', async (req, res) => {
     const transaction = await db.sequelize.transaction();
-    let { orderId } = req.body;
-  
+    let { orderId, split, equally} = req.body;
+    let toPay = 0;
+    let currencyBid = 1;
     let menuStatus = await menuIsCompleted();
-    if(menuStatus){
-        const currentBill = await Bill.findOne(
-            {where:{id: orderId}},
-            {transaction}
-        )
-        let currencyToPay = currentBill.dataValues.currency
-        let currencyBid = 1;
-        if(currencyToPay !== 'PLN'){
-            const currency = await axios.get(`http://api.nbp.pl/api/exchangerates/rates/c/${currencyToPay}/today`)
-            currencyBid = currency.data.rates[0].bid;
-        }
-        let toPay = 0;
-        const allDishes = await OrderedDish.findAll({where: {orderId: orderId}}, {transaction})
-        allDishes.forEach(el => {
-            toPay += el.dataValues.price
-            console.log(el.dataValues.price);
-            console.log(currencyBid);
-        })
-        const billId = allDishes[0].dataValues.billId;
+    const splitTable = [];
 
-        await Bill.update(
-            {paidUp: true},
-            {returning: true, where: {id: billId},},
+    if(menuStatus){
+        const order = await Order.findOne({where: {id: orderId}}, {transaction})
+        const currentBill = await Bill.findOne(
+            {where:{id: order.dataValues.id}},
             {transaction}
         )
-        await transaction.commit();
-        res.status(200).send({msg: `do zapłaty ${(toPay / currencyBid).toFixed(2)} ${currencyToPay}`})
+        const isPaid = currentBill.dataValues.paidUp
+        if(!isPaid){
+
+            let currencyToPay = currentBill.dataValues.currency
+
+            if(currencyToPay !== 'PLN'){
+                const currency = await axios.get(`http://api.nbp.pl/api/exchangerates/rates/c/${currencyToPay}/today`)
+                currencyBid = currency.data.rates[0].bid;
+            }
+
+            const allDishes = await OrderedDish.findAll({where: {orderId: orderId}}, {transaction})
+            allDishes.forEach(el => {
+                toPay += el.dataValues.price
+            })
+
+            const billId = allDishes[0].dataValues.billId;
+
+            await Bill.update(
+                {paidUp: true},
+                {returning: true, where: {id: billId},},
+                {transaction}
+            )
+            await Order.update(
+                {status: 'zapłacone'},
+                {returning: true, where: {id: orderId},},
+                {transaction}
+            )
+
+            if(split && !equally){
+                allDishes.forEach(el => {
+                    splitTable.push({singlePrice: el.dataValues.price}) 
+                })
+            }else {
+                
+                allDishes.forEach(() => {
+                    splitTable.push({singlePrice: ((toPay / allDishes.length) / currencyBid).toFixed(2) }) 
+                })
+            }
+
+            await transaction.commit();
+            res.status(200).send({
+                msg: `łącznie do zapłaty ${(toPay / currencyBid).toFixed(2)} ${currencyToPay}`,
+                split: splitTable
+            })
+        }else {
+            res.status(200).send('zamówienie zostało juz opłacone!')
+        }
     }else {
         res.status(200).send('Za mało pozycji w menu!')
     }
