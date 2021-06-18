@@ -5,11 +5,12 @@ const Order = db.order;
 const OrderedDish = db.orderedDish;
 const Bill = db.bill;
 const Menu = db.menu;
-
+const Promise = require('bluebird');
 let  menuIsCompleted = require('../../config/checkMenuStatus')
 
 router.post('/', async (req, res) => {
     const transaction = await db.sequelize.transaction();
+
     let { status, table, currency, dishName, price, category, description, dishes } = req.body;
     
     if(currency !== 'EUR' && currency !== 'USD'){
@@ -32,16 +33,20 @@ router.post('/', async (req, res) => {
             }, 
             {transaction}
             )
-         
-            await OrderedDish.create({
+            const test = await  Promise.each([1,2,3,4], async (item) => {
+            const transaction2 = await db.sequelize.transaction();
+                await OrderedDish.create({
                     orderId: newBill.id,
                     billId: newOrder.id,
                     dishName,
                     price,
                     category,
                     description,
-                }, {transaction})
-            
+                }, {transaction2})
+            await transaction2.commit();
+
+
+            })
 
             await transaction.commit();
 
