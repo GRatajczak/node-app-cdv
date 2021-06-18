@@ -6,7 +6,7 @@ const OrderedDish = db.orderedDish;
 const Bill = db.bill;
 const Menu = db.menu;
 const Promise = require('bluebird');
-let  menuIsCompleted = require('../../config/checkMenuStatus')
+let  menuIsCompleted = require('../../config/checkMenuStatus');
 
 router.post('/', async (req, res) => {
     const transaction = await db.sequelize.transaction();
@@ -21,7 +21,7 @@ router.post('/', async (req, res) => {
         let menuStatus = await menuIsCompleted();
         if(menuStatus){
             
-            const newBill  = await Bill.create({paidUp: false, currency},{transaction})
+            const newBill  = await Bill.create({paidUp: false, currency},{transaction});
             const newOrder = await Order.create(
             {
                 orderDate: new Date,
@@ -30,11 +30,11 @@ router.post('/', async (req, res) => {
                 table
             }, 
             {transaction}
-            )
+            );
 
             await  Promise.each(JSON.parse(dishes), async (item) => {
                 const transaction2 = await db.sequelize.transaction();
-                const dishFromMenu = await Menu.findOne({where: {id: item.id}},{transaction2})
+                const dishFromMenu = await Menu.findOne({where: {id: item.id}},{transaction2});
                 if(!dishFromMenu){
                     arrayOfDishes.push({id: item.id})
                 }
@@ -46,10 +46,10 @@ router.post('/', async (req, res) => {
                         price:  dishFromMenu.dataValues.price_PLN,
                         category: dishFromMenu.dataValues.category,
                         description: dishFromMenu.dataValues.description,
-                    }, {transaction2})
+                    }, {transaction2});
                     await transaction2.commit();
                 }
-            })
+            });
 
             await transaction.commit();
 

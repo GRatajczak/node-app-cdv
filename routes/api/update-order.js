@@ -5,25 +5,24 @@ const Order = db.order;
 const OrderedDish = db.orderedDish;
 const Menu = db.menu;
 
-let  menuIsCompleted = require('../../config/checkMenuStatus')
-
+let menuIsCompleted = require('../../config/checkMenuStatus');
 
 
 router.put('/', async (req, res) => {
     const transaction = await db.sequelize.transaction();
-    let { id, status, newDish } = req.body;
+    let {id, status, newDish} = req.body;
     console.log(req.body);
     // if(currency !== 'EUR' || currency !== 'USD'){
     //     currency = 'PLN'
     // }    
-    
+
     let menuStatus = await menuIsCompleted();
-    if(menuStatus){
-        let newDishModel 
-        if(newDish){
-            newDishModel = await  Menu.findOne({id :newDish.id},{transaction})
-        
-        
+    if (menuStatus) {
+        let newDishModel;
+        if (newDish) {
+            newDishModel = await Menu.findOne({id: newDish.id}, {transaction})
+
+
         }
         console.log(newDishModel);
         // await Order.update(
@@ -36,14 +35,12 @@ router.put('/', async (req, res) => {
         await transaction.commit();
         res.status(200).send('ok')
 
-      
-    }else {
+
+    } else {
         res.status(200).send('Za mało pozycji w menu!')
     }
 
-})
-
-
+});
 
 
 module.exports = router;

@@ -23,7 +23,7 @@ router.get('/:id', (req, res) => {
 
 router.post('/', (req, res) => {
     Menu.create(req.body)
-        .then(data => res.status(201).send('Dodano nowe danie!'))
+        .then(() => res.status(201).send('Dodano nowe danie!'))
         .catch((err) => {
             console.log(err);
             res.status(500).send('Failed to insert');
@@ -50,18 +50,6 @@ router.delete('/:id', (req, res) => {
         .catch((err) => {
             console.log(err);
             res.status(500).send('Failed to delete');
-        });
-});
-
-router.delete('/all', (req, res) => {
-    Menu.destroy({
-        where: {},
-        truncate: true
-    })
-        .then(() => res.status(204).end())
-        .catch((err) => {
-            console.log(err);
-            res.status(500).send('Failed to delete all');
         });
 });
 

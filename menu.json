@@ -1,0 +1,78 @@
+[{
+    "dishName":"Spagetti Bolognese",
+    "price_PLN":"20.00",
+    "category":"makarony",
+    "description":"Spagetti z miesem i sosem"
+},
+{
+    "dishName":"Spagetti Carbonarra",
+    "price_PLN":"19.00",
+    "category":"makarony",
+    "description":"Spagetti z sosem i boczkiem"
+},
+{
+    "dishName":"Devolay z frytkami",
+    "price_PLN":"25.00",
+    "category":"dania obiadowe",
+    "description":"Kotlet devolay z masłem i frytkami"
+},
+{
+    "dishName":"Nuggetsy 4szt.",
+    "price_PLN":"10.00",
+    "category":"menu dzieciece",
+    "description":"Nuggetsy z kurczaka"
+},
+{
+    "dishName":"Frytki",
+    "price_PLN":"5.00",
+    "category":"menu dzieciece",
+    "description":"Frytki z ketchupem"
+},
+{
+    "dishName":"Kotlet schabowy z ziemniakami",
+    "price_PLN":"22.00",
+    "category":"dania obiadowe",
+    "description":"Kotlet schabowy z ziemniakami i surówką"
+},
+{
+    "dishName":"Kotlet drobiowy z ziemniakami",
+    "price_PLN":"23.00",
+    "category":"dania obiadowe",
+    "description":"Kotlet z piersi kurczaka z ziemniakami i surówką"
+},
+{
+    "dishName":"Zrazy z kapustą",
+    "price_PLN":"20.50",
+    "category":"dania obiadowe",
+    "description":"Zrazy miesne z kapusta"
+},
+{
+    "dishName":"Kebab w bułce",
+    "price_PLN":"12.00",
+    "category":"dania orientalne",
+    "description":"Kebab w bułce, do wyboru mieso"
+},
+{
+    "dishName":"Kebab w tortilli",
+    "price_PLN":"12.00",
+    "category":"dania orientalne",
+    "description":"Kebab w tortilli, do wyboru mieso"
+},
+{
+    "dishName":"Pizza z szynką",
+    "price_PLN":"16.00",
+    "category":"pizza",
+    "description":"Pizza z sosem, szynką i serem"
+},
+{
+    "dishName":"Pizza z pieczarkami",
+    "price_PLN":"17.00",
+    "category":"pizza",
+    "description":"Pizza z sosem, pieczarkami i serem"
+},
+{
+    "dishName":"Pizza z pieczarkami",
+    "price_PLN":"17.00",
+    "category":"pizza",
+    "description":"Pizza z sosem, pieczarkami i serem"
+}]
