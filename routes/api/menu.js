@@ -53,16 +53,4 @@ router.delete('/:id', (req, res) => {
         });
 });
 
-router.delete('/all', (req, res) => {
-    Menu.destroy({
-        where: {},
-        truncate: true
-    })
-        .then(() => res.status(204).end())
-        .catch((err) => {
-            console.log(err);
-            res.status(500).send('Failed to delete all');
-        });
-});
-
 module.exports = router;

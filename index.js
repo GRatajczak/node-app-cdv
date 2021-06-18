@@ -11,6 +11,8 @@ const corsOptions = require('./config/development.cjs');
 const readFile = util.promisify(fs.readFile);
 const db = require('./models/index');
 require('dotenv').config();
+const Menu = db.menu;
+const Promise = require('bluebird');
 
 //endpoints
 const bill = require('./routes/api/bill.js');
@@ -40,7 +42,6 @@ app.use('/update-order', updateOrder);
 app.use('/pay-bill', payBill);
 app.use('/delete-order', deleteOrder);
 
-
 app.get('/', (req, res) => {
 	res.send('Hello World!')
 })
@@ -65,3 +66,29 @@ const  start = async () => {
 
 
 start();
+
+//menu filling
+const loadMenu = async () => {
+    try {
+		fs.readFile('menu.json', 'utf-8', async (err, data) => {
+			await  Promise.each(JSON.parse(data), async (item) => {
+				const menuItems = JSON.parse(data);
+				menuItems.forEach(async el => {
+					const transaction = await db.sequelize.transaction();
+					await Menu.create({
+						dishName: el.dishName,
+						price_PLN:  el.price_PLN,
+						category: el.category,
+						description: el.description,
+					}, {transaction});
+					await transaction.commit();
+				})
+			});
+		})
+	} catch (error) {
+        await  transaction.rollback();
+    }
+
+};
+
+loadMenu();
