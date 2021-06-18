@@ -39,7 +39,6 @@ router.put('/', async (req, res) => {
             })
 
             const billId = allDishes[0].dataValues.billId;
-
             await Bill.update(
                 {paidUp: true},
                 {returning: true, where: {id: billId},},
@@ -50,17 +49,19 @@ router.put('/', async (req, res) => {
                 {returning: true, where: {id: orderId},},
                 {transaction}
             )
-
-            if(split && !equally){
-                allDishes.forEach(el => {
-                    splitTable.push({singlePrice: el.dataValues.price}) 
-                })
-            }else {
-                
-                allDishes.forEach(() => {
-                    splitTable.push({singlePrice: ((toPay / allDishes.length) / currencyBid).toFixed(2) }) 
-                })
+            if(split == 'true'){
+                if(equally !== 'true'){
+                    allDishes.forEach(el => {
+                        splitTable.push({singlePrice: el.dataValues.price}) 
+                    })
+                }else {
+                    
+                    allDishes.forEach(() => {
+                        splitTable.push({singlePriceEqually: ((toPay / allDishes.length) / currencyBid).toFixed(2) }) 
+                    })
+                }
             }
+          
 
             await transaction.commit();
             res.status(200).send({
