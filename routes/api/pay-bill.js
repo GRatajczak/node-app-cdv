@@ -18,50 +18,50 @@ router.put('/', async (req, res) => {
     const splitTable = [];
 
     if(menuStatus){
-        const order = await Order.findOne({where: {id: orderId}}, {transaction})
+        const order = await Order.findOne({where: {id: orderId}}, {transaction});
         const currentBill = await Bill.findOne(
             {where:{id: order.dataValues.id}},
             {transaction}
-        )
-        const isPaid = currentBill.dataValues.paidUp
+        );
+        const isPaid = currentBill.dataValues.paidUp;
         if(!isPaid){
 
-            let currencyToPay = currentBill.dataValues.currency
+            let currencyToPay = currentBill.dataValues.currency;
 
             if(currencyToPay !== 'PLN'){
-                const currency = await axios.get(`http://api.nbp.pl/api/exchangerates/rates/c/${currencyToPay}/today`)
+                const currency = await axios.get(`http://api.nbp.pl/api/exchangerates/rates/c/${currencyToPay}/today`);
                 currencyBid = currency.data.rates[0].bid;
             }
 
-            const allDishes = await OrderedDish.findAll({where: {orderId: orderId}}, {transaction})
+            const allDishes = await OrderedDish.findAll({where: {orderId: orderId}}, {transaction});
             allDishes.forEach(el => {
                 toPay += el.dataValues.price
-            })
+            });
 
             const billId = allDishes[0].dataValues.billId;
             await Bill.update(
                 {paidUp: true},
                 {returning: true, where: {id: billId},},
                 {transaction}
-            )
+            );
             await Order.update(
                 {status: 'zapłacone'},
                 {returning: true, where: {id: orderId},},
                 {transaction}
-            )
-            if(split == 'true'){
+            );
+            if(split === 'true'){
                 if(equally !== 'true'){
                     allDishes.forEach(el => {
-                        splitTable.push({singlePrice: el.dataValues.price}) 
+                        splitTable.push({singlePrice: el.dataValues.price})
                     })
                 }else {
-                    
+
                     allDishes.forEach(() => {
-                        splitTable.push({singlePriceEqually: ((toPay / allDishes.length) / currencyBid).toFixed(2) }) 
+                        splitTable.push({singlePriceEqually: ((toPay / allDishes.length) / currencyBid).toFixed(2) })
                     })
                 }
             }
-          
+
 
             await transaction.commit();
             res.status(200).send({
@@ -75,7 +75,7 @@ router.put('/', async (req, res) => {
         res.status(200).send('Za mało pozycji w menu!')
     }
 
-})
+});
 
 
 

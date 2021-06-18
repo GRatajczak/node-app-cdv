@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const db = require("../../models/index");
 const OrderedDish = db.orderedDish;
-let  menuIsCompleted = require('../../config/checkMenuStatus')
+let  menuIsCompleted = require('../../config/checkMenuStatus');
 
 router.get('/all', async (req, res) => {
     let menuStatus = await menuIsCompleted();

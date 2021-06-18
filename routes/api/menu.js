@@ -23,7 +23,7 @@ router.get('/:id', (req, res) => {
 
 router.post('/', (req, res) => {
     Menu.create(req.body)
-        .then(data => res.status(201).send('Dodano nowe danie!'))
+        .then(() => res.status(201).send('Dodano nowe danie!'))
         .catch((err) => {
             console.log(err);
             res.status(500).send('Failed to insert');
