@@ -1,5 +1,3 @@
-// tests/routes/status.test.js
-
 const callApi = require('../helpers.js')
 const PATH = `api/orderedDish/`;
 

@@ -43,7 +43,7 @@ router.post('/', async (req, res) => {
     // };
     let menuStatus = await menuIsCompleted();
     if(menuStatus){
-        Order.create(firstOrder)
+        Order.create(req.body)
             .then(data => res.status(201).send(data))
             .catch((err) => {
                 console.log(err);

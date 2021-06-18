@@ -8,13 +8,14 @@ test(`[DELETE] ${PATH} - bill - DELETE -1 - should delete a single bill`, async 
 
 // test(`[DELETE] ${PATH} - bill - DELETE - all - should delete all bills`, async () => {
 //     const response = await callApi("delete", "/bill/all", {}, {}, true);
-//     expect(response.status).toEqual(204);
+//     expect(response.status).toEqual(200);
 // });
 
 test(`[POST] ${PATH} - bill - POST - should add a new bill`, async () => {
 
     const addBill = {
-        paidUp: 1.0
+        paidUp: false,
+        currency: "USD"
     }
 
     const response = await callApi("post", "/bill/", addBill, {}, true);
@@ -34,7 +35,8 @@ test(`[GET] ${PATH} - bill - GET - 1 - should return single bill if exists`, asy
 test(`[PATCH] ${PATH} - bill - PATCH - should update a bill`, async () => {
 
     const updateBill = {
-        paidUp : 2.0
+        paidUp : true,
+        currency: "EUR"
     }
 
     const response = await callApi("post", "/bill/", updateBill, {}, true);
