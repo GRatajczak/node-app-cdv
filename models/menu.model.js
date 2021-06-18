@@ -8,7 +8,7 @@ module.exports = (sequelize) => {
         },
         price_PLN: {
             type: DataTypes.DOUBLE,
-            allowNull: true
+            allowNull: false
         },
         category: {
             type: DataTypes.STRING,
