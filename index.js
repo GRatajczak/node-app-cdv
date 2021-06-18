@@ -20,6 +20,7 @@ const orderedDish = require('./routes/api/ordered-dish.js');
 const setOrder = require('./routes/api/set-order.js');
 const updateOrder = require('./routes/api/update-order.js');
 const payBill = require('./routes/api/pay-bill.js');
+const deleteOrder = require('./routes/api/delete-order.js');
 
 
 app.use(helmet());
@@ -37,6 +38,7 @@ app.use('/orderedDish', orderedDish);
 app.use('/set-order', setOrder);
 app.use('/update-order', updateOrder);
 app.use('/pay-bill', payBill);
+app.use('/delete-order', deleteOrder);
 
 
 app.get('/', (req, res) => {
