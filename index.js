@@ -71,18 +71,16 @@ start();
 const loadMenu = async () => {
     try {
 		fs.readFile('menu.json', 'utf-8', async (err, data) => {
-			await  Promise.each(JSON.parse(data), async (item) => {
-				const menuItems = JSON.parse(data);
-				menuItems.forEach(async el => {
+			const menuItems = JSON.parse(data);
+			await  Promise.each(menuItems, async (item) => {
 					const transaction = await db.sequelize.transaction();
 					await Menu.create({
-						dishName: el.dishName,
-						price_PLN:  el.price_PLN,
-						category: el.category,
-						description: el.description,
+						dishName: item.dishName,
+						price_PLN:  item.price_PLN,
+						category: item.category,
+						description: item.description,
 					}, {transaction});
 					await transaction.commit();
-				})
 			});
 		})
 	} catch (error) {
