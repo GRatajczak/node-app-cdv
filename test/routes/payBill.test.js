@@ -8,6 +8,6 @@ test(`[PUT] ${PATH} - payBill - PUT - should update a single bill`, async () => 
         currency: "PLN"
     }
 
-    const response = await callApi("put", "/pay-bill/3", payBill, {}, true);
-    expect(response.status).toEqual(201); //tu
+    const response = await callApi("patch", "/pay-bill/", payBill, {}, true);
+    expect(response.status).toEqual(201); 
 });
