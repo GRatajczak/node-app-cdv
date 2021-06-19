@@ -23,7 +23,7 @@ const setOrder = require('./routes/api/set-order.js');
 const updateOrder = require('./routes/api/update-order.js');
 const payBill = require('./routes/api/pay-bill.js');
 const deleteOrder = require('./routes/api/delete-order.js');
-
+const raport = require('./routes/api/raport.js');
 
 app.use(helmet());
 app.use(bodyParser.json());
@@ -41,6 +41,7 @@ app.use('/set-order', setOrder);
 app.use('/update-order', updateOrder);
 app.use('/pay-bill', payBill);
 app.use('/delete-order', deleteOrder);
+app.use('/raport', raport);
 
 app.get('/', (req, res) => {
 	res.send('Hello World!')
@@ -88,5 +89,13 @@ const loadMenu = async () => {
     }
 
 };
+const isAlreadyFilled = async () => {
+	const allMenuItems = await Menu.findAll();
+	if(allMenuItems.length < 12)	{
+		loadMenu();
+	}
 
-loadMenu();
+}
+
+isAlreadyFilled()
+

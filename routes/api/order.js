@@ -33,14 +33,6 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-    // todo test record, remove in the future
-    // const firstOrder = {
-    //     orderDate: new Date(),
-    //     payDate: new Date(),
-    //     status: 'Do zapłacenia',
-    //     table: '4',
-    //     currency: 'test',
-    // };
     let menuStatus = await menuIsCompleted();
     if(menuStatus){
         Order.create(req.body)
