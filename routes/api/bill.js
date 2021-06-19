@@ -79,22 +79,4 @@ router.delete('/:id', async (req, res) => {
     }
 });
 
-router.delete('/all', async  (req, res) => {
-    let menuStatus = await menuIsCompleted();
-    if(menuStatus){
-        Bill.destroy({
-            where: {},
-            truncate: true
-        })
-            .then(() => res.status(204).end())
-            .catch((err) => {
-                console.log(err);
-                res.status(500).send('Failed to delete all');
-            });
-            
-    }else {
-        res.status(200).send('Za mało pozycji w menu!')
-    }
-});
-
 module.exports = router;
