@@ -4,15 +4,15 @@ const PATH = `api/set-order/`;
 test(`[POST] ${PATH} - setOrder - POST - should add a new Order`, async () => {
 
     const setNewOrder = {
-        table : 4,
-        currency : "USD",
+        table : "3A",
+        currency : "PLN",
         dishes : [
-            {id : 1},
-            {id : 1},
-            {id : 1},
-            {id : 1},
-            {id : 1},
-            {id : 1}
+            {"id" : 2},
+            {"id" : 2},
+            {"id" : 2},
+            {"id" : 2},
+            {"id" : 2},
+            {"id" : 2}
     ]
     }
 

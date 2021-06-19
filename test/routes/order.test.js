@@ -6,11 +6,6 @@ test(`[DELETE] ${PATH} - order - DELETE - 1 - should delete an object and return
   expect(response.status).toEqual(204);
 });
 
-// test(`[DELETE] ${PATH} - order - DELETE - all - should delete all objects`, async () => {
-//   const response = await callApi("delete", "/order/all", {}, {}, true);
-//   expect(response.status).toEqual(200);
-// });
-
 test(`[GET] ${PATH} - order - -GET - all - should return array of orders`, async () => {
   const response = await callApi("get", "/order/all", {}, {}, true);
   expect(response.status).toEqual(200);
@@ -31,7 +26,7 @@ test(`[POST] ${PATH} - order - POST - should return new object`, async () => {
   }
 
   const response = await callApi("post", "/order/", testOrder, {}, true);
-  expect(response.status).toEqual(201);
+  expect(response.status).toEqual(201);//tu
 });
 
 test(`[PATCH] ${PATH} - order - PATCH - should update an object`, async () => {
