@@ -1,15 +1,10 @@
 const callApi = require('../helpers.js')
 const PATH = `api/menu/`;
 
-// test(`[DELETE] ${PATH} - menu - DELETE -1 - should delete a single position in menu`, async () => {
-//     const response = await callApi("delete", "/menu/1", {}, {}, true);
-//     expect(response.status).toEqual(204);
-// });
-
-// test(`[DELETE] ${PATH} - menu - DELETE - all - should delete all positions in menu`, async () => {
-//     const response = await callApi("delete", "/menu/all", {}, {}, true);
-//     expect(response.status).toEqual(200);
-// });
+test(`[DELETE] ${PATH} - menu - DELETE -1 - should delete a single position in menu`, async () => {
+    const response = await callApi("delete", "/menu/1", {}, {}, true);
+    expect(response.status).toEqual(204);
+});
 
 test(`[POST] ${PATH} - menu - POST - should add a new position in menu`, async () => {
 
