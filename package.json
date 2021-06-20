@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
-    "dev": "nodemon  ./index.js"
+    "test-api": "cross-env NODE_ENV=test nodemon src/index.js",
+    "test": "cross-env NODE_ENV=test NODE_OPTIONS=--experimental-vm-modules jest --detectOpenHandles --maxWorkers=1 --watch",
+    "dev": "cross-env NODE_ENV=development nodemon  ./index.js"
   },
   "repository": {
     "type": "git",
@@ -18,11 +19,28 @@
   },
   "homepage": "https://github.com/GRatajczak/node-app-cdv#readme",
   "devDependencies": {
-    "nodemon": "^2.0.7"
+    "axios": "^0.21.1",
+    "jest": "^27.0.4",
+    "nodemon": "^2.0.7",
+    "sequelize-cli": "^6.2.0"
   },
   "dependencies": {
+    "babel-eslint": "^10.1.0",
+    "bluebird": "^3.7.2",
     "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "cross-env": "^7.0.3",
+    "dotenv": "^9.0.1",
+    "eslint": "^7.27.0",
     "express": "^4.17.1",
-    "helmet": "^4.4.1"
+    "express-rate-limit": "^5.2.6",
+    "helmet": "^4.4.1",
+    "lodash": "^4.17.21",
+    "mysql2": "^2.2.5",
+    "sequelize": "^6.6.2",
+    "sqlite3": "^5.0.2"
+  },
+  "jest": {
+    "transform": {}
   }
 }
